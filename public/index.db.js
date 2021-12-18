@@ -1,11 +1,14 @@
 // ref unit 18 homework last two activities 
 
+// var to hold db connection 
 let dataBase;
 
+// Establish a connection to IndexedDB
 const request = indexedDB.open("budget" , 1) 
 request.onupgradeneeded = function (event) {
     let db = event.target.result;
-    db.creatObjectStore("pending", {
+    console.log('This is db', db);
+    db.createObjectStore("budget", {
         autoIncrement: true
     })
 }
@@ -14,9 +17,56 @@ request.onsuccess= function (event) {
     if(navigator.onLine) {
         addToDataBase()
     }
+};
+
+request.onerror = function(event) {
+    console.log(event.target.errorCode);
+};
+
+// save record
+function saveRecord(record) {
+    const transaction = db.transaction(['new_budget'], 'readwrite');
+    
+    const budgetObjectStore = transaction.createObjectStore('new_budget');
+
+    budgetObjectStore.add(record);
 }
 
-// create the function save record 
-// create the function add to data base in this file 
-// ref 18 unit!!! 
-// add this file to index.html at the bottom aas a script 
+// addToDataBase
+function addToDataBase() {
+    const transaction = dataBase.transaction(['new_budget'], 'readwrite');
+    const budgetObjectStore = transaction.createObjectStore('new_budget');
+    const getAll = budgetObjectStore.getAll();
+
+    getAll.onsuccess = function() {
+        if(getAll.result.length > 0) {
+        fetch ('/api/transaction', {
+            method: 'POST',
+            body: JSON.stringify(getAll.result),
+            headers: {
+            Accept: 'application/json, text/plain, */*',
+          'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(serverResponse => {
+          if (serverResponse.message) {
+            throw new Error(serverResponse);
+          }
+          const transaction = db.transaction(['new_budget'], 'readwrite');
+          const budgetObjectStore = transaction.createObjectStore('new_budget');
+          budgetObjectStore.clear();
+
+          alert('All saved transactions have been submitted!')
+    })
+    .catch(err => {
+        console.log(err);
+        });
+    }
+    }
+}
+
+// listen for app coming back online
+window.addEventListener('online', addToDataBase);
+
+

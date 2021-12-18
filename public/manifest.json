@@ -1,15 +1,45 @@
 {
     "name": "Budget Tracker",
-    "short_name": "Budget Tracker",
+    "short_name": "Btg Tracker",
     "icons": [
         {
-            "src": "icons/192X192.png",
+            "src": "icons/icon-72X72.png",
+            "sizes": "72X72",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-96X96.png",
+            "sizes": "96X96",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-128X128.png",
+            "sizes": "128X128",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-144X144.png",
+            "sizes": "144X144",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-152X152.png",
+            "sizes": "152X152",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-192X192.png",
             "sizes": "192X192",
             "type": "image/png"
         },
         {
-            "src": "icons/512X512.png",
-            "sizes": "5132X512",
+            "src": "icons/icon-384X384.png",
+            "sizes": "384X384",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/icon-512X512.png",
+            "sizes": "512X512",
             "type": "image/png"
         }
     ],
