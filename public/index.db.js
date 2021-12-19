@@ -6,7 +6,6 @@ const request = indexedDB.open("budget", 1);
 
 request.onupgradeneeded = function (event) {
   let dataBase = event.target.result;
-  console.log("This is db", db);
   dataBase.createObjectStore('new_budget', {
     autoIncrement: true,
   });
