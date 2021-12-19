@@ -1,10 +1,9 @@
-// ref unit 18 homework last two activities 
-
 // var to hold db connection 
 let dataBase;
 
 // Establish a connection to IndexedDB
-const request = indexedDB.open("budget" , 1) 
+const request = indexedDB.open("budget" , 1); 
+
 request.onupgradeneeded = function (event) {
     let db = event.target.result;
     console.log('This is db', db);
@@ -25,17 +24,17 @@ request.onerror = function(event) {
 
 // save record
 function saveRecord(record) {
-    const transaction = db.transaction(['new_budget'], 'readwrite');
+    const transaction = db.transaction(['budget'], 'readwrite');
     
-    const budgetObjectStore = transaction.createObjectStore('new_budget');
+    const budgetObjectStore = transaction.ObjectStore('budget');
 
     budgetObjectStore.add(record);
 }
 
 // addToDataBase
 function addToDataBase() {
-    const transaction = dataBase.transaction(['new_budget'], 'readwrite');
-    const budgetObjectStore = transaction.createObjectStore('new_budget');
+    const transaction = dataBase.transaction(['budget'], 'readwrite');
+    const budgetObjectStore = transaction.ObjectStore('budget');
     const getAll = budgetObjectStore.getAll();
 
     getAll.onsuccess = function() {
@@ -53,8 +52,8 @@ function addToDataBase() {
           if (serverResponse.message) {
             throw new Error(serverResponse);
           }
-          const transaction = db.transaction(['new_budget'], 'readwrite');
-          const budgetObjectStore = transaction.createObjectStore('new_budget');
+          const transaction = db.transaction(['budget'], 'readwrite');
+          const budgetObjectStore = transaction.ObjectStore('budget');
           budgetObjectStore.clear();
 
           alert('All saved transactions have been submitted!')
