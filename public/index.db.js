@@ -26,7 +26,7 @@ request.onerror = function(event) {
 function saveRecord(record) {
     const transaction = db.transaction(['budget'], 'readwrite');
     
-    const budgetObjectStore = transaction.ObjectStore('budget');
+    const budgetObjectStore = transaction.objectStore('budget');
 
     budgetObjectStore.add(record);
 }
@@ -34,7 +34,7 @@ function saveRecord(record) {
 // addToDataBase
 function addToDataBase() {
     const transaction = dataBase.transaction(['budget'], 'readwrite');
-    const budgetObjectStore = transaction.ObjectStore('budget');
+    const budgetObjectStore = transaction.objectStore('budget');
     const getAll = budgetObjectStore.getAll();
 
     getAll.onsuccess = function() {
@@ -53,7 +53,7 @@ function addToDataBase() {
             throw new Error(serverResponse);
           }
           const transaction = db.transaction(['budget'], 'readwrite');
-          const budgetObjectStore = transaction.ObjectStore('budget');
+          const budgetObjectStore = transaction.objectStore('budget');
           budgetObjectStore.clear();
 
           alert('All saved transactions have been submitted!')
